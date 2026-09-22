@@ -1,0 +1,26 @@
+# Build & Simulation Artifacts
+build/
+reports/
+obj_dir/
+*.vcd
+*.wdb
+
+# Vivado generated project & logs
+fpga/vivado_project/
+.Xil/
+xsim.dir/
+*.jou
+*.log
+*.str
+*.pb
+hs_err_*.log
+vivado_pid*.str
+xvlog.pb
+xelab.pb
+
+# Editor & OS files
+.DS_Store
+*.swp
+*~
+.vscode/
+.idea/

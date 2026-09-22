@@ -1,0 +1,26 @@
+# Chung minh ba thuoc tinh chan mien cua ecg_requant cho MOI dau vao.
+#
+# Khong gian dau vao la 2^49 (psum 24 + mult 11 + shift 5 + bias 9), nen mot bo
+# vector khong the quet het. `prove` chay k-induction: no chung minh cho moi do
+# dai, khong chi den do sau da thu.
+[tasks]
+prove
+bmc
+
+[options]
+prove: mode prove
+prove: depth 12
+bmc:   mode bmc
+bmc:   depth 20
+
+[engines]
+prove: abc pdr
+bmc:   smtbmc boolector
+
+[script]
+read_slang --top ecg_requant -DFORMAL ecg_pkg.sv ecg_requant.sv
+prep -top ecg_requant
+
+[files]
+../include/ecg_pkg.sv
+../src/coproc/ecg_requant.sv

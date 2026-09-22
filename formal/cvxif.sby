@@ -1,0 +1,23 @@
+# Chung minh cac thuoc tinh cua ecg_cvxif cho MOI dau vao. Xem khoi `ifdef FORMAL`
+# trong ecg_cvxif.sv ve tung thuoc tinh va vi sao no dang chung minh.
+[tasks]
+prove
+bmc
+
+[options]
+prove: mode prove
+prove: depth 16
+bmc:   mode bmc
+bmc:   depth 24
+
+[engines]
+prove: abc pdr
+bmc:   smtbmc boolector
+
+[script]
+read_slang --top ecg_cvxif -DFORMAL ecg_pkg.sv ecg_cvxif.sv
+prep -top ecg_cvxif
+
+[files]
+../include/ecg_pkg.sv
+../src/coproc/ecg_cvxif.sv

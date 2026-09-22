@@ -1,0 +1,23 @@
+# Chung minh cac thuoc tinh cua ecg_actbuf. Xem khoi `ifdef FORMAL` trong ecg_actbuf.sv.
+[tasks]
+prove
+bmc
+
+[options]
+prove: mode prove
+prove: depth 16
+bmc:   mode bmc
+bmc:   depth 24
+
+[engines]
+prove: abc pdr
+bmc:   smtbmc boolector
+
+[script]
+read_slang --top ecg_actbuf -DFORMAL ecg_pkg.sv ecg_sram_1r1w.sv ecg_actbuf.sv
+prep -top ecg_actbuf
+
+[files]
+../include/ecg_pkg.sv
+../src/common/ecg_sram_1r1w.sv
+../src/coproc/ecg_actbuf.sv

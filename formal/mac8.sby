@@ -1,0 +1,32 @@
+# Chung minh 24 bit psum la DU cho ecg_mac8 -- thuoc tinh CHUC NANG.
+#
+# Khac cac tep .sby con lai (bat bien cau truc: dia chi trong dai, co bao khong
+# ro ri, thu tu bat tay), day la mot tuyen bo ve SO HOC: voi moi chuoi khong qua
+# 210 so hang, moi so hang |act|,|wgt| <= 127, bo tich luy khong bao gio ra ngoai
+# dai bieu dien duoc cua ECG_PSUM_BITS. Neu no ban thi be rong 24 bit khong con du
+# va moi con so dien tich dua tren no phai tinh lai.
+#
+# `prove` dung smtbmc chu khong dung `abc pdr`: thuoc tinh co mot phep nhan
+# 16 bit x 9 bit (dang ti le theo so so hang, can de quy nap duoc) va pdr da tung
+# do vo tren trang thai lon trong du an nay.
+[tasks]
+prove
+bmc
+
+[options]
+prove: mode prove
+prove: depth 16
+bmc:   mode bmc
+bmc:   depth 24
+
+[engines]
+prove: smtbmc boolector
+bmc:   smtbmc boolector
+
+[script]
+read_slang --top ecg_mac8 -DFORMAL ecg_pkg.sv ecg_mac8.sv
+prep -top ecg_mac8
+
+[files]
+../include/ecg_pkg.sv
+../src/coproc/ecg_mac8.sv

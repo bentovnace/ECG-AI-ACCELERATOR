@@ -1,0 +1,23 @@
+# Chung minh cac thuoc tinh cua ecg_vecop cho MOI dau vao. Xem khoi `ifdef FORMAL`
+# trong ecg_vecop.sv ve tung thuoc tinh va vi sao no dang chung minh.
+[tasks]
+prove
+bmc
+
+[options]
+prove: mode prove
+prove: depth 16
+bmc:   mode bmc
+bmc:   depth 24
+
+[engines]
+prove: abc pdr
+bmc:   smtbmc boolector
+
+[script]
+read_slang --top ecg_vecop -DFORMAL ecg_pkg.sv ecg_vecop.sv
+prep -top ecg_vecop
+
+[files]
+../include/ecg_pkg.sv
+../src/coproc/ecg_vecop.sv

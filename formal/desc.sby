@@ -1,0 +1,23 @@
+# Chung minh cac thuoc tinh cua ecg_desc. Xem khoi `ifdef FORMAL` trong ecg_desc.sv.
+[tasks]
+prove
+bmc
+
+[options]
+prove: mode prove
+prove: depth 16
+bmc:   mode bmc
+bmc:   depth 24
+
+[engines]
+prove: abc pdr
+bmc:   smtbmc boolector
+
+[script]
+read_slang --top ecg_desc -DFORMAL ecg_pkg.sv  ecg_desc.sv
+prep -top ecg_desc
+
+[files]
+../include/ecg_pkg.sv
+../src/common/ecg_sram_1r1w.sv
+../src/coproc/ecg_desc.sv

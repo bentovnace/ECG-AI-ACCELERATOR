@@ -1,0 +1,30 @@
+# Chung minh phep DINH TUYEN cua doc 8 byte lech hang qua hai bang.
+#
+# Bo nho la HOP DEN o day, va do la lua chon dung chu khong phai ne tranh: cac
+# thuoc tinh o duoi noi ve dinh tuyen (bang nao, chi so nao, dich bao nhieu bit)
+# chu khong ve noi dung bo nho, nen mot bo nho tu do lam chung MANH hon. Cong
+# them: hai bang that la 292 x 64 bit = 37 k bit trang thai va `abc pdr` sup
+# (AssertionError) tren mot khong gian nhu vay.
+# CHI BMC. `abc pdr` sup voi AssertionError tren hai bang 292 x 64 bit = 37 k bit
+# trang thai, va truu tuong hoa bo nho bang mot stub `anyseq` KHONG hop le cho cac
+# thuoc tinh o day (chung so hai bieu thuc cung dan tu dau ra bo nho, con `anyseq`
+# cho mot gia tri tu do moi o moi lan tham chieu). Nen ket qua cua module nay la
+# bounded den do sau 24, khong phai chung minh bang quy nap -- ghi ro o §B'.
+[tasks]
+bmc
+
+[options]
+bmc: mode bmc
+bmc: depth 24
+
+[engines]
+bmc: smtbmc boolector
+
+[script]
+read_slang --top ecg_wmem -DFORMAL ecg_pkg.sv ecg_sram_1r1w.sv ecg_wmem.sv
+prep -top ecg_wmem
+
+[files]
+../include/ecg_pkg.sv
+../src/common/ecg_sram_1r1w.sv
+../src/coproc/ecg_wmem.sv

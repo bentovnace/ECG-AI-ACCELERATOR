@@ -1,0 +1,22 @@
+# Chung minh bat bien cua bo dem long nhau va cua `oob_o` (ADR-0013).
+[tasks]
+prove
+bmc
+
+[options]
+prove: mode prove
+prove: depth 20
+bmc:   mode bmc
+bmc:   depth 30
+
+[engines]
+prove: abc pdr
+bmc:   smtbmc boolector
+
+[script]
+read_slang --top ecg_addrgen -DFORMAL ecg_pkg.sv ecg_addrgen.sv
+prep -top ecg_addrgen
+
+[files]
+../include/ecg_pkg.sv
+../src/coproc/ecg_addrgen.sv
