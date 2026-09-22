@@ -5,17 +5,17 @@
 
 set PART   "xc7z020clg400-1"
 set ROOT   [pwd]
-set OUT    $ROOT/60-fpga/measurements
-set BIT    $ROOT/60-fpga/bitstream
-set XDC    $ROOT/60-fpga/board/arty_z7_20.xdc
+set OUT    $ROOT/reports/measurements
+set BIT    $ROOT/bitstream
+set XDC    $ROOT/fpga/board/arty_z7_20.xdc
 file mkdir $OUT $BIT
 set STAMP  [clock format [clock seconds] -format %Y%m%dT%H%M%SZ -gmt 1]
 
 if {[llength [get_parts -quiet $PART]] == 0} { error "Khong co part $PART." }
 
-set IMEM_HEX $ROOT/80-firmware/build/fw.hex
-set DMEM_HEX $ROOT/80-firmware/build/model.hex
-foreach f [list $IMEM_HEX $DMEM_HEX $XDC] {
+set IMEM_HEX $ROOT/firmware/fw.hex
+set DMEM_HEX $ROOT/firmware/model.hex
+foreach f [list $XDC] {
     if {![file exists $f]} { error "Thieu file `$f`." }
 }
 
@@ -23,11 +23,11 @@ puts "\n============================================================"
 puts "=== Chay Implement Arty Z7-20 ($PART) voi Pinout that"
 puts "============================================================"
 
-set CORE 40-rtl/src/core
-set RTL  40-rtl
+set CORE src/core
+set RTL  .
 set SRCS [lsort -unique [concat [lsort [glob $CORE/rtl/include/*.sv]] \
                                 [lsort [glob $CORE/rtl/*.sv]] \
-                                [lsort [glob 60-fpga/rtl/*.sv]] \
+                                [lsort [glob fpga/rtl/*.sv]] \
                                 [lsort [glob $RTL/include/*.sv]] \
                                 [lsort [glob $RTL/src/common/*.sv]] \
                                 [lsort [glob $RTL/src/coproc/*.sv]] \

@@ -78,7 +78,6 @@ Multi-mode ECG Deep Learning Coprocessor & SoC Platform based on **RISC-V CV-X-I
 ├── filelists/              # Simulation filelists for Verilator / EDA tools
 ├── formal/                 # Formal verification SymbiYosys (.sby) properties
 ├── constraints/            # ASIC / SDC timing constraints
-├── docs/                   # ISA specification, descriptors, cycle budget
 └── Makefile                # Master command runner for Vivado, synthesis, & sim
 ```
 
@@ -128,13 +127,6 @@ make sim-requant
 ## 🛠️ Verification & Formal Proofs
 * **Formal Verification:** SymbiYosys (`sby`) scripts in `formal/` prove arithmetic correctness, bounded model checking (BMC), and protocol safety invariants.
 * **Cycle-accurate Co-simulation:** Verilator C++ testbenches in `tb/` verify exact bit-level match against golden PyTorch/INT8 vectors.
-
----
-
-## 📄 Documentation
-* [ISA Specification](docs/isa.md) — 12 CV-X-IF instructions and opcode encoding.
-* [Descriptor Format](docs/descriptor.md) — Hardware descriptor pipeline layout.
-* [Cycle Budget](docs/ngan-sach-chu-ky.md) — Latency and throughput analysis across 4 model families.
 
 ---
 
